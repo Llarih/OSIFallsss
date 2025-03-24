@@ -1,19 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torres de Wi-Fi 3D</title>
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Container de Dados Segmentado</title>
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden; /* Remove barras de rolagem */
-        }
-        #threejs-container {
+      body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: linear-gradient(135deg, #1e88e5, #42a5f5, #64b5f6, #1e88e5);
+        background-size: 400% 400%;
+        animation: gradientAnimation 10s ease infinite;
+        overflow: hidden;
+      }
+
+      @keyframes gradientAnimation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      #webgl-canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      #threejs-container {
             position: absolute;
             top: 0;
             left: 0;
@@ -21,17 +34,20 @@
             height: 100vh; /* Garante que o contêiner ocupe toda a altura da tela */
         }
         #quiz-container {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 10px 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    width: 1500px; /* Aumenta a largura */
+    height: auto; /* Ajuste automático da altura */
+}
+
         #quiz-container button {
             margin-top: 10px;
             padding: 5px 10px;
@@ -73,7 +89,6 @@
                 opacity: 1;
             }
         }
-        /* Estilo para o botão de voltar */
         #back-button {
             margin-top: 20px;
             padding: 10px 20px;
@@ -86,30 +101,31 @@
         #back-button:hover {
             background-color: #4682b4;
         }
-        /* Botão de voltar - inicialmente escondido */
         #back-button-container {
             position: absolute;
-            bottom: 80px; /* Colocado acima do quiz */
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            display: none; /* Inicialmente escondido */
+            display: none; /* Escondido inicialmente */
+            z-index: 100; /* Garantir que o botão fique sobre outros elementos */
         }
     </style>
 </head>
 <body>
     <div id="threejs-container"></div>
     <div id="quiz-container">
-        <p>Eu sou a PRIMEIRA camada do modelo OSI! Sem mim, nada funcionaria, pois sou responsável por transformar os dados em sinais elétricos, ópticos ou de rádio para que possam viajar pelos cabos ou pelo ar. Você pode me encontrar em fios de rede, ondas de Wi-Fi ou até mesmo sinais de satélite.</p>
-        <p>Agora me diga, qual camada eu sou?</p>
-        <button onclick="handleAnswer(this, true)">Camada Física</button>
-        <button onclick="handleAnswer(this, false)">Camada de Transporte</button>
-        <button onclick="handleAnswer(this, false)">Camada de Enlace</button>
+        <p>Eu sou a QUARTA camada do modelo OSI! Imagine que sua mensagem é dividida em várias peças para serem enviadas separadamente, mas eu garanto que todas elas chegarão intactas e na ordem certa!</p>
+<p>Exemplo: Quando você envia um arquivo ou imagem pela internet, os dados são divididos em pacotes e enviados com segurança.</p>
+<p>Agora, qual camada sou eu?</p>
+<button onclick="handleAnswer(this, true)">Camada de Transporte</button>
+<button onclick="handleAnswer(this, false)">Camada de Sessão</button>
+<button onclick="handleAnswer(this, false)">Camada de Rede</button>
+
     </div>
     <div id="message-container"></div>
-    
-    <!-- Botão de voltar -->
+    <!-- Contêiner para o botão de voltar -->
     <div id="back-button-container">
-        <button id="back-button" onclick="goToHomePage()">Voltar à Página Inicial</button>
+        <button id="back-button" onclick="goToHomePage()">Voltar à Tela Inicial</button>
     </div>
 
     <!-- Adiciona a biblioteca Three.js via CDN -->
@@ -121,7 +137,7 @@
                 messageContainer.textContent = "Você é o bichão mesmo hein! Acertou em cheio!";
                 messageContainer.style.color = "green";
             } else {
-                messageContainer.textContent = "Errouuuuu! A resposta correta é: Camada Física.";
+                messageContainer.textContent = "Errouuuuu! A resposta correta é: Camada de Tranporte.";
                 messageContainer.style.color = "red";
             }
             messageContainer.style.display = 'block';
@@ -130,14 +146,23 @@
             const buttons = document.querySelectorAll('#quiz-container button');
             buttons.forEach(btn => btn.disabled = true);
 
-            // Exibe o botão de voltar
+            // Mostra o botão de voltar
             document.getElementById('back-button-container').style.display = 'block';
         }
 
         function goToHomePage() {
-            window.location.replace("../index.html"); // Redireciona para a página inicial
+            // Caminho relativo para a página inicial
+            window.location.replace("index.html");
         }
     </script>
-    <script type="module" src="./Camada 1.js"></script>
+    <script type="module" src="./ethernetCable3D.js"></script>
 </body>
+</html>
+    </style>
+  </head>
+  <body>
+    <canvas id="webgl-canvas"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="Camada 4.js"></script>
+  </body>
 </html>
