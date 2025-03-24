@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torres de Wi-Fi 3D</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Remove barras de rolagem */
+        }
+        #threejs-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw; /* Garante que o contêiner ocupe toda a largura da tela */
+            height: 100vh; /* Garante que o contêiner ocupe toda a altura da tela */
+        }
+        #quiz-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #quiz-container button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1e90ff;
+            color: white;
+            cursor: pointer;
+        }
+        #quiz-container button:hover {
+            background-color: #4682b4;
+        }
+        #quiz-container button:disabled {
+            background-color: #d3d3d3;
+            cursor: not-allowed;
+        }
+        #message-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            text-align: center;
+            display: none; /* Inicialmente escondido */
+            animation: flyIn 2s ease-out forwards;
+        }
+        @keyframes flyIn {
+            0% {
+                transform: translate(-50%, -150%);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+            }
+        }
+        /* Estilo para o botão de voltar */
+        #back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #back-button:hover {
+            background-color: #4682b4;
+        }
+        /* Botão de voltar - inicialmente escondido */
+        #back-button-container {
+            position: absolute;
+            bottom: 80px; /* Colocado acima do quiz */
+            left: 50%;
+            transform: translateX(-50%);
+            display: none; /* Inicialmente escondido */
+        }
+    </style>
+</head>
+<body>
+    <div id="threejs-container"></div>
+    <div id="quiz-container">
+        <p>Eu sou a PRIMEIRA camada do modelo OSI! Sem mim, nada funcionaria, pois sou responsável por transformar os dados em sinais elétricos, ópticos ou de rádio para que possam viajar pelos cabos ou pelo ar. Você pode me encontrar em fios de rede, ondas de Wi-Fi ou até mesmo sinais de satélite.</p>
+        <p>Agora me diga, qual camada eu sou?</p>
+        <button onclick="handleAnswer(this, true)">Camada Física</button>
+        <button onclick="handleAnswer(this, false)">Camada de Transporte</button>
+        <button onclick="handleAnswer(this, false)">Camada de Enlace</button>
+    </div>
+    <div id="message-container"></div>
+    
+    <!-- Botão de voltar -->
+    <div id="back-button-container">
+        <button id="back-button" onclick="goToHomePage()">Voltar à Página Inicial</button>
+    </div>
+
+    <!-- Adiciona a biblioteca Three.js via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+    <script>
+        function handleAnswer(button, isCorrect) {
+            const messageContainer = document.getElementById('message-container');
+            if (isCorrect) {
+                messageContainer.textContent = "Você é o bichão mesmo hein! Acertou em cheio!";
+                messageContainer.style.color = "green";
+            } else {
+                messageContainer.textContent = "Errouuuuu! A resposta correta é: Camada Física.";
+                messageContainer.style.color = "red";
+            }
+            messageContainer.style.display = 'block';
+
+            // Desabilita todos os botões após a primeira tentativa
+            const buttons = document.querySelectorAll('#quiz-container button');
+            buttons.forEach(btn => btn.disabled = true);
+
+            // Exibe o botão de voltar
+            document.getElementById('back-button-container').style.display = 'block';
+        }
+
+        function goToHomePage() {
+            window.location.replace("../cu/index.html"); // Redireciona para a página inicial
+        }
+    </script>
+    <script type="module" src="./Camada 1.js"></script>
+</body>
+</html>

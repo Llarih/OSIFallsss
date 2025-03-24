@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roteador Futurista Simples</title>
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: #121212;
+        overflow: hidden;
+      }
+
+      #webgl-canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      #quiz-container {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 10px 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-family: Arial, sans-serif;
+        text-align: center;
+        width: 1000px;
+        height: auto;
+      }
+
+      #quiz-container button {
+        margin-top: 10px;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #1e90ff;
+        color: white;
+        cursor: pointer;
+      }
+      #quiz-container button:hover {
+        background-color: #4682b4;
+      }
+      #quiz-container button:disabled {
+        background-color: #d3d3d3;
+        cursor: not-allowed;
+      }
+      #message-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 15px 30px;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        text-align: center;
+        display: none;
+        animation: flyIn 2s ease-out forwards;
+      }
+      @keyframes flyIn {
+        0% {
+          transform: translate(-50%, -150%);
+          opacity: 0;
+        }
+        100% {
+          transform: translate(-50%, -50%);
+          opacity: 1;
+        }
+      }
+      #back-button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #1e90ff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #back-button:hover {
+        background-color: #4682b4;
+      }
+      #back-button-container {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        z-index: 100;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="threejs-container"></div>
+    <div id="quiz-container">
+      <p>Eu sou a SEGUNDA camada do modelo OSI! Imagine que os dados estão viajando por um longo caminho, mas eles precisam de um guarda para garantir que tudo chegue sem erros. Esse guarda confere se os dados estão corretos e até reenvia aqueles que chegam corrompidos. Sem essa verificação, sua mensagem poderia chegar cheia de falhas ou até nem chegar!</p>
+      <p>Exemplo: A verificação de dados em Wi-Fi ou Ethernet, onde é checado se a informação chega inteira e sem erros.</p>
+      <p>Agora me diga, qual camada eu sou?</p>
+      <button onclick="handleAnswer(this, false)">Camada de Aplicação</button>
+      <button onclick="handleAnswer(this, false)">Camada de Rede</button>
+      <button onclick="handleAnswer(this, true)">Camada de Enlace de Dados</button>
+    </div>
+    <div id="message-container"></div>
+    <div id="back-button-container">
+      <button id="back-button" onclick="goToHomePage()">Voltar à Tela Inicial</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+    <script>
+      function handleAnswer(button, isCorrect) {
+        const messageContainer = document.getElementById('message-container');
+        if (isCorrect) {
+          messageContainer.textContent = "Você é o bichão mesmo hein! Acertou em cheio!";
+          messageContainer.style.color = "green";
+        } else {
+          messageContainer.textContent = "Errouuuuu! A resposta correta é: Camada de Enlace de Dados.";
+          messageContainer.style.color = "red";
+        }
+        messageContainer.style.display = 'block';
+
+        const buttons = document.querySelectorAll('#quiz-container button');
+        buttons.forEach(btn => btn.disabled = true);
+
+        document.getElementById('back-button-container').style.display = 'block';
+      }
+
+      function goToHomePage() {
+        window.location.replace("../cu/index.html");
+      }
+    </script>
+    <script type="module" src="./Camada 2.js"></script>
+  </body>
+</html>

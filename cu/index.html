@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OSIFalls</title>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(135deg, 
+        rgba(0, 255, 0, 0.8), 
+        rgba(0, 128, 0, 0.7),
+        rgba(0, 255, 255, 0.6),
+        rgba(0, 255, 0, 0.5),
+        rgba(0, 0, 0, 0.6),
+        rgba(255, 255, 255, 0.2)
+      );
+      background-size: 400% 400%;
+      animation: neonBackground 8s ease infinite;
+    }
+
+    @keyframes neonBackground {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      width: 60%;
+      max-width: 500px;
+      box-shadow: 0 0 30px rgba(0, 255, 0, 0.7);
+      position: relative;
+    }
+
+    .container h1 {
+      font-size: 3em;
+      color: #00ff00;
+      margin-bottom: 20px;
+    }
+
+    .greeting {
+      font-size: 1.5em;
+      color: #fff;
+      margin-bottom: 30px;
+    }
+
+    .input-container {
+      margin-top: 20px;
+    }
+
+    input {
+      font-size: 1.2em;
+      padding: 10px;
+      margin-top: 10px;
+      width: 80%;
+      border: 2px solid #00ff00;
+      border-radius: 5px;
+      background-color: #1c1f26;
+      color: white;
+    }
+
+    button {
+      font-size: 1.2em;
+      background-color: #00ff00;
+      color: #282c34;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #ff007f;
+    }
+
+    nav {
+      margin-top: 30px;
+    }
+
+    nav ul {
+      list-style-type: none;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin: 0 10px;
+    }
+
+    nav ul li a {
+      color: #00ff00;
+      font-size: 1.2em;
+      text-decoration: none;
+    }
+
+    nav ul li a:hover {
+      color: #ff007f;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Bem-vindo ao OSIFalls!</h1>
+    <p id="greeting" class="greeting">Insira seu nome abaixo para começar sua aventura:</p>
+    
+    <!-- Campo para inserção do nome do jogador -->
+    <div class="input-container">
+      <input type="text" id="playerName" placeholder="Digite seu nome">
+      <button onclick="startGame()">Começar Jogo</button>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="../ok/Camada%201.html">Camada 1</a></li>
+        <li><a href="../ok2/Camada%202.html">Camada 2</a></li>
+        <li><a href="../ok3/Camada%203.html">Camada 3</a></li>
+        <li><a href="../ok4/Camada%204.html">Camada 4</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <script>
+    // Função para iniciar o jogo e armazenar o nome
+    function startGame() {
+      var playerName = document.getElementById('playerName').value;
+
+      if (playerName.trim() === "") {
+        alert("Por favor, insira seu nome antes de começar!");
+        return; // Não faz nada se o nome não for fornecido
+      }
+
+      // Armazena o nome no localStorage se for a primeira vez
+      localStorage.setItem('playerName', playerName);
+      
+      // Redireciona para a primeira camada
+      window.location.href = "../ok/Camada%201.html";
+    }
+
+    // Função para obter o nome do jogador do localStorage
+    function getPlayerNameFromStorage() {
+      return localStorage.getItem('playerName');
+    }
+
+    // Verifica se há um nome armazenado e exibe uma saudação
+    window.onload = function() {
+      var playerName = getPlayerNameFromStorage(); // Obtém o nome do localStorage
+
+      if (playerName) {
+        // Se o nome estiver presente no localStorage, exibe a saudação
+        document.getElementById('greeting').innerText = `Olá, ${playerName}! Pronto para começar sua aventura?`;
+      } else {
+        // Caso o nome não esteja armazenado, exibe a mensagem de entrada
+        document.getElementById('greeting').innerText = "Insira seu nome abaixo para começar sua aventura:";
+      }
+    };
+  </script>
+</body>
+</html>

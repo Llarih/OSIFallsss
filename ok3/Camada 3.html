@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roteador Futurista Simples</title>
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: #121212; /* Fundo escuro */
+        overflow: hidden;
+      }
+
+      #webgl-canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      #quiz-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #quiz-container button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1e90ff;
+            color: white;
+            cursor: pointer;
+        }
+        #quiz-container button:hover {
+            background-color: #4682b4;
+        }
+        #quiz-container button:disabled {
+            background-color: #d3d3d3;
+            cursor: not-allowed;
+        }
+        #message-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            text-align: center;
+            display: none; /* Inicialmente escondido */
+            animation: flyIn 2s ease-out forwards;
+        }
+        @keyframes flyIn {
+            0% {
+                transform: translate(-50%, -150%);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+            }
+        }
+        #back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #back-button:hover {
+            background-color: #4682b4;
+        }
+        #back-button-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none; /* Escondido inicialmente */
+            z-index: 100; /* Garantir que o botão fique sobre outros elementos */
+        }
+    </style>
+</head>
+<body>
+    <div id="threejs-container"></div>
+    <div id="quiz-container">
+        <p>Eu sou a TERCEIRA camada do modelo OSI! Imagine que você quer enviar uma carta para alguém em outro país. Você precisa de um endereço para garantir que ela chegue ao lugar certo. Eu sou responsável por encontrar o melhor caminho para sua mensagem viajar e chegar ao destino correto, sem se perder pelo caminho!</p>
+        <p>Exemplo: O roteador que define o caminho dos dados pela internet, com base no endereço IP, para garantir que cheguem ao destino certo.</p>
+        <p>Agora me diga, qual camada eu sou?</p>
+        <button onclick="handleAnswer(this, false)">Camada de Transporte</button>
+        <button onclick="handleAnswer(this, true)">Camada de Rede</button>
+        <button onclick="handleAnswer(this, false)">Camada de Enlace de Dados</button>
+        
+    </div>
+    <div id="message-container"></div>
+    <!-- Contêiner para o botão de voltar -->
+    <div id="back-button-container">
+        <button id="back-button" onclick="goToHomePage()">Voltar à Tela Inicial</button>
+    </div>
+
+    <!-- Adiciona a biblioteca Three.js via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+    <script>
+        function handleAnswer(button, isCorrect) {
+            const messageContainer = document.getElementById('message-container');
+            if (isCorrect) {
+                messageContainer.textContent = "Você é o bichão mesmo hein! Acertou em cheio!";
+                messageContainer.style.color = "green";
+            } else {
+                messageContainer.textContent = "Errouuuuu! A resposta correta é: Camada de Rede.";
+                messageContainer.style.color = "red";
+            }
+            messageContainer.style.display = 'block';
+
+            // Desabilita todos os botões após a primeira tentativa
+            const buttons = document.querySelectorAll('#quiz-container button');
+            buttons.forEach(btn => btn.disabled = true);
+
+            // Mostra o botão de voltar
+            document.getElementById('back-button-container').style.display = 'block';
+        }
+
+        function goToHomePage() {
+            // Caminho relativo para a página inicial
+            window.location.replace("../cu/index.html"); // Redireciona para a página inicial na mesma pasta
+        }
+    </script>
+    <script type="module" src="./Camada 3.js"></script>
+</body>
+</html>
+    </style>
+  </head>
+  <body>
+    <canvas id="webgl-canvas"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="rede.js"></script>
+  </body>
+</html>
+
+
+  
